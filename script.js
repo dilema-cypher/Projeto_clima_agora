@@ -27,7 +27,6 @@ async function buscarClima(){
     let respostaGeocoding = await fetch(urlGeocoding);
 
     let dadosLocalizacao = await respostaGeocoding.json();
-    console.log(dadosLocalizacao)
 
     let lat = dadosLocalizacao[0].lat;
     let lon = dadosLocalizacao[0].lon;
@@ -37,6 +36,7 @@ async function buscarClima(){
     //construi nossa url com base na longitude, latitude e nossa chave api
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=pt_br&appid=${chaveAPI}`;
 
+    
     //bloco try e catch onde onde maior parte do codigo roda e busca capturar eventuais erros e depois apresenta los
     try{
 
@@ -55,15 +55,24 @@ async function buscarClima(){
         //Caso o if seja true e não false da sequencia no código e transforma a resposta em um formato json de dados
         let dados = await resposta.json();
 
+        console.log(dados)
+
+        // ✅ Adição essencial: corrigir o nome da cidade via API reversa
+        const urlReversa = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${chaveAPI}`;
+        const respostaReversa = await fetch(urlReversa);
+        const dadosReversos = await respostaReversa.json();
+
+        // usa o nome correto da cidade se disponível, senão mantém o original
+        const NcidadeCorrigida = dadosReversos[0]?.name || dados.name;
         // Armazenando os dados da nossa api que queremos usar no html
-        const Ncidade = dados.name;
+        
         const pais = dados.sys.country;
         const temperatura = dados.main.temp;
         const description = dados.weather[0].description;
         const sensacao = dados.main.feels_like;
         
         //Inserindo os dados atraves do innerHTML para o DOM
-        localEPais.innerHTML = `${Ncidade}, ${pais}`;
+        localEPais.innerHTML = `${NcidadeCorrigida}, ${pais}`;
         temp.innerHTML = `${parseInt(temperatura)}`;
         descricao.innerHTML = `${description}`;
         senTermica.innerHTML =`${parseInt(sensacao)}`;
