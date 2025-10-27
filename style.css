@@ -1,0 +1,274 @@
+/* Importação de Fonte do Google Fonts para um visual mais agradável (opcional) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+    --cor-fundo-principal: #f0f4f8; /* Azul claro suave */
+    --cor-card: #ffffff;
+    --cor-texto-principal: #333333;
+    --cor-destaque: #3498db; /* Azul vibrante para ícones e botões */
+    --sombra-card: 0 10px 25px rgba(0, 0, 0, 0.1);
+    --cor-nuvem: rgba(255, 255, 255, 0.8);
+    --cor-sol: #FFD700; /* Dourado */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--cor-fundo-principal);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    overflow: hidden; /* Garante que as nuvens não causem scroll */
+    position: relative; /* Para posicionar as nuvens e o sol */
+}
+
+/* ---------------------------------- */
+/* NUVENS E SOL - NOVOS ELEMENTOS */
+/* ---------------------------------- */
+
+.nuvem {
+    position: absolute;
+    background: var(--cor-nuvem);
+    border-radius: 50%;
+    opacity: 0.9;
+    filter: blur(8px);
+    z-index: -1; /* Fica atrás do conteúdo */
+    animation: moverNuvem 30s linear infinite;
+}
+
+.nuvem:nth-child(1) {
+    width: 150px;
+    height: 150px;
+    top: 10%;
+    left: -50px;
+    animation-duration: 35s;
+    animation-delay: 0s;
+}
+
+.nuvem:nth-child(2) {
+    width: 200px;
+    height: 200px;
+    top: 30%;
+    right: -70px;
+    animation-duration: 45s;
+    animation-delay: 5s;
+}
+
+.nuvem:nth-child(3) {
+    width: 100px;
+    height: 100px;
+    bottom: 20%;
+    left: -30px;
+    animation-duration: 25s;
+    animation-delay: 10s;
+}
+
+.sol {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    width: 150px;
+    height: 150px;
+    background-color: var(--cor-sol);
+    border-radius: 50%;
+    box-shadow: 0 0 50px var(--cor-sol), 0 0 100px var(--cor-sol); /* Efeito de brilho */
+    z-index: -2; /* Fica atrás de tudo, incluindo nuvens */
+    animation: pulsoSol 4s ease-in-out infinite alternate;
+}
+
+@keyframes moverNuvem {
+    0% { transform: translateX(-100vw); }
+    100% { transform: translateX(100vw); }
+}
+
+@keyframes pulsoSol {
+    0% { transform: scale(1); opacity: 0.8; }
+    100% { transform: scale(1.05); opacity: 1; }
+}
+
+
+/* ---------------------------------- */
+/* Estilo do Container Principal */
+/* ---------------------------------- */
+
+.clima-container {
+    background-color: var(--cor-card);
+    border-radius: 15px;
+    box-shadow: var(--sombra-card);
+    padding: 30px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative; /* Para garantir que o card esteja acima das nuvens/sol */
+    z-index: 1; /* Acima das nuvens e do sol */
+}
+
+/* ---------------------------------- */
+/* Estilo da Busca */
+/* ---------------------------------- */
+
+.busca {
+    display: flex;
+    margin-bottom: 25px;
+    border: 2px solid var(--cor-destaque);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#cidade-input {
+    flex-grow: 1;
+    border: none;
+    padding: 12px 15px;
+    font-size: 16px;
+    outline: none;
+}
+
+#buscar-btn {
+    background-color: var(--cor-destaque);
+    color: white;
+    border: none;
+    padding: 12px 15px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-size: 18px;
+}
+
+#buscar-btn:hover {
+    background-color: #2980b9; /* Um tom um pouco mais escuro */
+}
+
+/* ---------------------------------- */
+/* Estilo dos Resultados do Clima */
+/* ---------------------------------- */
+
+.clima-resultado {
+    color: var(--cor-texto-principal);
+    /* O JavaScript irá adicionar/remover uma classe 'ativo' para mostrar */
+    display: none; 
+    animation: fadeIn 0.5s ease-out;
+}
+
+.clima-resultado.ativo {
+    display: block;
+}
+
+.cidade {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.clima-principal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.icone-clima {
+    font-size: 5rem; /* Ícone grande */
+    color: var(--cor-destaque);
+    margin-right: 15px;
+}
+
+.temperatura {
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.descricao {
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 30px;
+    color: #6c757d; /* Cinza suave */
+}
+
+/* ---------------------------------- */
+/* Estilo dos Detalhes (Vento, Umidade, etc.) */
+/* ---------------------------------- */
+
+.detalhes {
+    display: flex;
+    justify-content: space-around;
+    padding: 15px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.detalhe-item {
+    text-align: center;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.detalhe-item i {
+    font-size: 1.5rem;
+    color: var(--cor-destaque);
+    margin-bottom: 5px;
+}
+
+.detalhe-item p {
+    font-weight: 600;
+    color: var(--cor-texto-principal);
+    margin: 3px 0;
+}
+
+.detalhe-item span {
+    font-weight: 400;
+}
+
+/* ---------------------------------- */
+/* Estilo da Mensagem de Status */
+/* ---------------------------------- */
+
+.mensagem-status {
+    font-size: 16px;
+    color: #6c757d;
+    padding: 20px 0;
+}
+
+/* Animação */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Media Query para telas menores */
+@media (max-width: 450px) {
+    .clima-container {
+        padding: 20px;
+    }
+    
+    .clima-principal {
+        flex-direction: column;
+    }
+    
+    .icone-clima {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+
+    .temperatura {
+        font-size: 3rem;
+    }
+
+    .detalhes {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .sol {
+        width: 100px;
+        height: 100px;
+        top: 2%;
+        right: 2%;
+    }
+}

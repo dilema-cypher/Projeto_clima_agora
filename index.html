@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clima Agora</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <div class="nuvem"></div>
+    <div class="nuvem"></div>
+    <div class="nuvem"></div>
+    <div class="sol"></div>
+    <div class="clima-container">
+        <div class="busca">
+            <input type="text" id="cidade-input" placeholder="Digite o nome da cidade">
+            <button id="buscar-btn">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+
+        <div class="clima-resultado" id="clima-info">
+            <h2 class="cidade" id="local-pais">Cidade, País</h2>
+            
+            <div class="clima-principal">
+                <i class="fas fa-cloud-sun icone-clima"></i> <p class="temperatura" id="temp">25°C</p>
+            </div>
+            
+            <p class="descricao" id="descricao">Parcialmente Nublado</p>
+
+            <div class="detalhes">
+                
+                <div class="detalhe-item">
+                    <i class="fas fa-thermometer-half"></i>
+                    <p>Sensação:</p>
+                    <span id="sensacao-termica">24°C</span>
+                </div>
+            </div>
+
+        </div>
+
+        <p class="mensagem-status" id="mensagem-status">Pesquise para ver o clima!</p>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
